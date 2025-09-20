@@ -1,52 +1,106 @@
-# Cloud Enabled Deployment In Action with AWS
+Cloud-Enabled Deployment in Action with AWS
 
-This repository contains four projects:
+This repository demonstrates a cloud-enabled full-stack deployment using Spring Boot, React, and AWS.
+It consists of four independent projects working together:
 
-- course-service (Spring Boot + MySQL)
-- student-service (Spring Boot + MongoDB)
-- media-service (Spring Boot + Local file storage, can be extended to S3/MinIO)
-- frontend-app (React + TypeScript)
+course-service → Spring Boot + MySQL
 
-## Backend Services
+student-service → Spring Boot + MongoDB
 
-### 1. course-service
-- Entity: Course(id, name, duration)
-- Endpoints:
-  - GET /courses
-  - GET /courses/{id}
-  - POST /courses
-  - DELETE /courses/{id}
-- Default port: 8081
-- Configure MySQL settings
+media-service → Spring Boot + Local/S3/MinIO file storage
 
-### 2. student-service
-- Document: Student(registrationNumber, fullName, address, contact, email)
-- Endpoints:
-  - GET /students
-  - GET /students/{id}
-  - POST /students
-  - DELETE /students/{id}
-- Default port: 8082
-- Configure MongoDB settings
+frontend-app → React + TypeScript
 
-### 3. media-service
-- Resource: files
-- Endpoints:
-  - POST /files (multipart/form-data: file)
-  - GET /files (list)
-  - GET /files/{id} (fetch)
-  - DELETE /files/{id} (delete)
-- Default port: 8083
-- Uses local disk storage at `./data/media` by default (override with env var `MEDIA_STORAGE_DIR`).
+📌 Project Overview
+1. Course Service (Spring Boot + MySQL)
 
-## Frontend (frontend-app)
-- React + TypeScript + MUI + Axios + Vite app with 3 sections: Courses, Students, Media
-- Scripts:
-  - npm run dev (Vite dev server)
-  - npm run build (TypeScript build + Vite build)
-  - npm run preview (Preview built app)
+Entity: Course(id, name, duration)
 
-## Build
+REST Endpoints:
+
+GET /courses → Fetch all courses
+
+GET /courses/{id} → Fetch course by ID
+
+POST /courses → Add new course
+
+DELETE /courses/{id} → Delete course
+
+Default Port: 8081
+
+Configuration: Requires MySQL settings
+
+2. Student Service (Spring Boot + MongoDB)
+
+Document: Student(registrationNumber, fullName, address, contact, email)
+
+REST Endpoints:
+
+GET /students → Fetch all students
+
+GET /students/{id} → Fetch student by ID
+
+POST /students → Add new student
+
+DELETE /students/{id} → Delete student
+
+Default Port: 8082
+
+Configuration: Requires MongoDB settings
+
+3. Media Service (Spring Boot + File Storage)
+
+Resource: files
+
+REST Endpoints:
+
+POST /files → Upload file (multipart/form-data)
+
+GET /files → List all uploaded files
+
+GET /files/{id} → Download specific file
+
+DELETE /files/{id} → Delete file
+
+Default Port: 8083
+
+Storage:
+
+By default → ./data/media (local disk)
+
+Can override with env var → MEDIA_STORAGE_DIR
+
+Extendable to AWS S3 / MinIO
+
+4. Frontend Application (React + TypeScript + Vite + MUI)
+
+Sections: Courses | Students | Media
+
+Built with: React, TypeScript, MUI, Axios, Vite
+
+Scripts:
+
+npm run dev → Start Vite dev server
+
+npm run build → TypeScript + Vite production build
+
+npm run preview → Preview production build
+
+⚙️ Build & Deployment
+
+Each service can be built and deployed separately.
+Ensure that databases (MySQL, MongoDB) are configured before starting backend services.
+The frontend consumes APIs from the above services.
+
+👤 Student Information
+
+Name: Your Name Here
+
+Student ID: Your Student ID Here
+
+🎥 Demo Video
+
+Watch the demo video here: Demo Video Link
 
 - Backend: run `mvn -q -e -DskipTests package` at repo root to build services.
 - Frontend: run `npm install` then `npm run dev` inside `frontend-app`.
