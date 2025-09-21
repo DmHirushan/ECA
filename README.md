@@ -1,106 +1,99 @@
-Cloud-Enabled Deployment in Action with AWS
+# Enterprise-Cloud-Architecture
 
-This repository demonstrates a cloud-enabled full-stack deployment using Spring Boot, React, and AWS.
-It consists of four independent projects working together:
+An enterprise-grade application for educational institutions, designed using a microservices architecture with Spring Boot and React. The system highlights modern distributed design patterns and supports deployment across multiple cloud platforms.
 
-course-service → Spring Boot + MySQL
+<p align="left">
+  <strong>👤 Dimuth Hirushan</strong><br>
+  🎓 Student ID: <code>2301682090</code><br>
+  📧 Email: <>dimuthsamaranayaka756@gmail.com</a>
+</p>
 
-student-service → Spring Boot + MongoDB
+## 📺 Demo Video
+[**Watch Project Demo**](https://drive.google.com/file/d/1oO1yEvJao6yhiZX4ZmfwTIl-2-QvTrlt/view?usp=sharing)
 
-media-service → Spring Boot + Local/S3/MinIO file storage
+## About the Project
 
-frontend-app → React + TypeScript
+This is a **microservices architecture** project consisting of:
 
-📌 Project Overview
-1. Course Service (Spring Boot + MySQL)
+- **Course Service** (Port: 8081) - Course management with MySQL database
+- **Student Service** (Port: 8082) - Student management with MongoDB database
+- **Media Service** (Port: 8083) - File upload and media management
+- **Frontend App** (Port: 5173) - React with TypeScript and Material-UI
 
-Entity: Course(id, name, duration)
+### Technology Stack
+- **Backend**: Spring Boot 3.5.5, Java 21, Maven
+- **Frontend**: React 18, TypeScript, Vite, Material-UI
+- **Databases**: MySQL, MongoDB
+- **Cloud**: AWS, GCP deployment configurations
 
-REST Endpoints:
+## How to Run
 
-GET /courses → Fetch all courses
+### Prerequisites
+- Java 21
+- Node.js 18+
+- Maven 3.8+
+- MySQL Server
+- MongoDB
 
-GET /courses/{id} → Fetch course by ID
+### 1. Clone Repository
+```bash
+git clone https://github.com/DmHirushan/ECA.git
+cd Enterprise-Cloud-Architecture
+```
 
-POST /courses → Add new course
+### 2. Database Setup
 
-DELETE /courses/{id} → Delete course
+**MySQL (Course Service):**
+```sql
+CREATE DATABASE eca_courses;
+CREATE USER 'eca_user'@'localhost' IDENTIFIED BY 'eca_password';
+GRANT ALL PRIVILEGES ON eca_courses.* TO 'eca_user'@'localhost';
+```
 
-Default Port: 8081
+**MongoDB (Student Service):**
+```bash
+# Start MongoDB on port 16000
+mongod --port 16000
+```
 
-Configuration: Requires MySQL settings
+### 3. Start Services
 
-2. Student Service (Spring Boot + MongoDB)
+**Backend Services:**
+```bash
+# Build all services
+mvn clean install
 
-Document: Student(registrationNumber, fullName, address, contact, email)
+# Start Course Service (Terminal 1)
+cd course-service && mvn spring-boot:run
 
-REST Endpoints:
+# Start Student Service (Terminal 2)  
+cd student-service && mvn spring-boot:run
 
-GET /students → Fetch all students
+# Start Media Service (Terminal 3)
+cd media-service && mvn spring-boot:run
+```
 
-GET /students/{id} → Fetch student by ID
+**Frontend Application:**
+```bash
+# Terminal 4
+cd frontend-app
+npm install
+npm run dev
+```
 
-POST /students → Add new student
+### 4. Access Application
+- **Frontend**: http://localhost:5173
+- **Course Service**: http://localhost:8081
+- **Student Service**: http://localhost:8082
+- **Media Service**: http://localhost:8083
 
-DELETE /students/{id} → Delete student
-
-Default Port: 8082
-
-Configuration: Requires MongoDB settings
-
-3. Media Service (Spring Boot + File Storage)
-
-Resource: files
-
-REST Endpoints:
-
-POST /files → Upload file (multipart/form-data)
-
-GET /files → List all uploaded files
-
-GET /files/{id} → Download specific file
-
-DELETE /files/{id} → Delete file
-
-Default Port: 8083
-
-Storage:
-
-By default → ./data/media (local disk)
-
-Can override with env var → MEDIA_STORAGE_DIR
-
-Extendable to AWS S3 / MinIO
-
-4. Frontend Application (React + TypeScript + Vite + MUI)
-
-Sections: Courses | Students | Media
-
-Built with: React, TypeScript, MUI, Axios, Vite
-
-Scripts:
-
-npm run dev → Start Vite dev server
-
-npm run build → TypeScript + Vite production build
-
-npm run preview → Preview production build
-
-⚙️ Build & Deployment
-
-Each service can be built and deployed separately.
-Ensure that databases (MySQL, MongoDB) are configured before starting backend services.
-The frontend consumes APIs from the above services.
-
-👤 Student Information
-
-Name: Your Name Here
-
-Student ID: Your Student ID Here
-
-🎥 Demo Video
-
-Watch the demo video here: Demo Video Link
-
-- Backend: run `mvn -q -e -DskipTests package` at repo root to build services.
-- Frontend: run `npm install` then `npm run dev` inside `frontend-app`.
+## Project Structure
+```
+Enterprise-Cloud-Architecture/
+├── course-service/          # Course management microservice
+├── student-service/         # Student management microservice
+├── media-service/          # Media/file management microservice
+├── frontend-app/           # React frontend application
+├── pom.xml                # Parent Maven configuration
+└── README.md
+```
